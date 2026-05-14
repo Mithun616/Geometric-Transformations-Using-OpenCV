@@ -72,11 +72,176 @@ Read the input image in color mode.
 ##  Program
 
 ### Developed By:
-**Name:** ____________________________  
+**Name:** Mithun Kumar G
 
 ### Register No:
-____________________________  
+212224230160 
 
+```
+# Import 
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Read the image using OpenCV
+img = cv2.imread("baseball.jpg")
+
+# Display the image using Matplotlib
+plt.imshow(img[:,:,::-1])
+plt.title("Original Image")
+plt.axis("off")
+```
+```
+# Translation 
+M = np.float32([[1, 0, 50],
+                [0, 1, 80]])
+translated = cv2.warpAffine(img, M, (img.shape[1], img.shape[0]))
+
+# Display original and translated images
+plt.figure(figsize=(10,5))
+
+plt.subplot(1,2,1)
+plt.imshow(img[:,:,::-1])
+plt.title("Original Image")
+plt.axis("off")
+
+plt.subplot(1,2,2)
+plt.imshow(translated[:,:,::-1])
+plt.title("Translated Image")
+plt.axis("off")
+
+plt.show()
+```
+```
+# Downscale image (0.5x)
+small_img = cv2.resize(img, None, fx=0.5, fy=0.5)
+# Upscale image (2x)
+large_img = cv2.resize(img, None, fx=2, fy=2)
+
+# Display images
+plt.figure(figsize=(15,5))
+
+plt.subplot(1,3,1)
+plt.imshow(img[:,:,::-1])
+plt.title("Original Image")
+plt.axis("off")
+
+plt.subplot(1,3,2)
+plt.imshow(small_img[:,:,::-1])
+plt.title("Downscaled Image")
+plt.axis("off")
+
+plt.subplot(1,3,3)
+plt.imshow(large_img[:,:,::-1])
+plt.title("Upscaled Image")
+plt.axis("off")
+
+plt.show()
+```
+```
+# Image Shearing
+# Get image height and width
+h, w = img.shape[:2]
+# Horizontal shearing matrix
+M1 = np.float32([[1, 0.5, 0],
+                 [0, 1, 0]])
+
+# Vertical shearing matrix
+M2 = np.float32([[1, 0, 0],
+                 [0.5, 1, 0]])
+
+# Apply shearing
+h_shear = cv2.warpAffine(img, M1, (w, h))
+v_shear = cv2.warpAffine(img, M2, (w, h))
+
+# Display images
+plt.figure(figsize=(15,5))
+
+plt.subplot(1,3,1)
+plt.imshow(img[:,:,::-1])
+plt.title("Original Image")
+plt.axis("off")
+
+plt.subplot(1,3,2)
+plt.imshow(h_shear[:,:,::-1])
+plt.title("Horizontal Shear")
+plt.axis("off")
+
+plt.subplot(1,3,3)
+plt.imshow(v_shear[:,:,::-1])
+plt.title("Vertical Shear")
+plt.axis("off")
+
+plt.show()
+```
+```
+# Image Reflection
+# Horizontal reflection
+h_flip = cv2.flip(img, 1)
+
+# Vertical reflection
+v_flip = cv2.flip(img, 0)
+
+# Both-axis reflection
+hv_flip = cv2.flip(img, -1)
+# Display images
+plt.figure(figsize=(10,10))
+
+plt.subplot(2,2,1)
+plt.imshow(img[:,:,::-1])
+plt.title("Original Image")
+plt.axis("off")
+
+plt.subplot(2,2,2)
+plt.imshow(h_flip[:,:,::-1])
+plt.title("Horizontal Reflection")
+plt.axis("off")
+
+plt.subplot(2,2,3)
+plt.imshow(v_flip[:,:,::-1])
+plt.title("Vertical Reflection")
+plt.axis("off")
+
+plt.subplot(2,2,4)
+plt.imshow(hv_flip[:,:,::-1])
+plt.title("Both-axis Reflection")
+plt.axis("off")
+
+plt.show()
+```
+```
+# Image Rotation
+ image height and width
+h, w = img.shape[:2]
+# Find center of image
+center = (w//2, h//2)
+# Rotation matrix for 45 degree
+M1 = cv2.getRotationMatrix2D(center, 45, 1)
+# Rotation matrix for 90 degree
+M2 = cv2.getRotationMatrix2D(center, 90, 1)
+# Rotate images
+rotated_45 = cv2.warpAffine(img, M1, (w, h))
+rotated_90 = cv2.warpAffine(img, M2, (w, h))
+# Display images
+plt.figure(figsize=(15,5))
+
+plt.subplot(1,3,1)
+plt.imshow(img[:,:,::-1])
+plt.title("Original Image")
+plt.axis("off")
+
+plt.subplot(1,3,2)
+plt.imshow(rotated_45[:,:,::-1])
+plt.title("45° Rotated Image")
+plt.axis("off")
+
+plt.subplot(1,3,3)
+plt.imshow(rotated_90[:,:,::-1])
+plt.title("90° Rotated Image")
+plt.axis("off")
+
+plt.show()
+```
 ---
 
 ##  Output
